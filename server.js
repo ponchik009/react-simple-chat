@@ -13,6 +13,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./build"));
 
+const PORT = proccess.env.PORT || 3001;
+
 const rooms = new Map();
 
 /*
@@ -79,7 +81,7 @@ io.on("connection", (socket) => {
   console.log("user connected", socket.id);
 });
 
-server.listen(10000, (error) => {
+server.listen(PORT, (error) => {
   if (error) {
     throw Error(error);
   }
