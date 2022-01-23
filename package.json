@@ -29,7 +29,7 @@
       "react-app/jest"
     ]
   },
-  "proxy": "http://localhost:10000",
+  "proxy": "https://bananagirls-official-chat.herokuapp.com",
   "browserslist": {
     "production": [
       ">0.2%",
