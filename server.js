@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./build"));
 
-const PORT = proccess.env.PORT || 3001;
+const PORT = process.env.PORT || 3001;
 
 const rooms = new Map();
 
