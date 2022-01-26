@@ -19,6 +19,12 @@ const Chat = ({ roomId, userName, users, messages, onAddMessage }) => {
     setMessageValue("");
   };
 
+  const handlerKeyPress = (e) => {
+    if (e.key === "Enter") {
+      onSendMessage();
+    }
+  };
+
   React.useEffect(() => {
     messagesRef.current.scrollTo(0, 9999);
   }, [messages]);
@@ -58,6 +64,7 @@ const Chat = ({ roomId, userName, users, messages, onAddMessage }) => {
             rows="3"
             value={messageValue}
             onChange={(e) => setMessageValue(e.target.value)}
+            onKeyDown={handlerKeyPress}
           ></textarea>
           <button
             type="button"
