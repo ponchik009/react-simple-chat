@@ -7,10 +7,11 @@
 
 .wrapper {
   height: 100vh;
-  max-width: 80%;
+  width: 100vw;
   margin: auto;
   display: flex;
   align-items: center;
+  justify-content: center;
   /* min-width: 720px; */
 }
 
@@ -37,6 +38,7 @@
 }
 
 .chat {
+  min-width: 80%;
   display: flex;
   height: 80vh;
   border: 1px solid rgba(159, 183, 197, 0.2);
