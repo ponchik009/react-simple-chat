@@ -26,6 +26,10 @@ const Chat = ({ roomId, userName, users, messages, onAddMessage }) => {
   };
 
   React.useEffect(() => {
+    return () => socket.emit("disconnect");
+  }, []);
+
+  React.useEffect(() => {
     messagesRef.current.scrollTo(0, 9999);
   }, [messages]);
 

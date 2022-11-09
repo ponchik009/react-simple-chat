@@ -43,7 +43,9 @@ app.post("/rooms", (req, res) => {
       ])
     );
   } else {
-    if ([...rooms.get(roomId).get("users").values()].includes(userName)) {
+    if (
+      Array.from(rooms.get(roomId).get("users").values()).includes(userName)
+    ) {
       res.status(401);
     }
   }
@@ -74,6 +76,9 @@ io.on("connection", (socket) => {
       if (room.get("users").delete(socket.id)) {
         const users = [...room.get("users").values()];
         socket.to(roomId).emit("ROOM.SET_USERS", users);
+      }
+      if (room.get("users").size === 0) {
+        rooms.delete(roomId);
       }
     });
   });
