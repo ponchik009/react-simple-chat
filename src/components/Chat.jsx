@@ -6,7 +6,11 @@ const Chat = ({ roomId, userName, users, messages, onAddMessage }) => {
   const [messageValue, setMessageValue] = React.useState("");
   const messagesRef = React.useRef(null);
 
-  const onSendMessage = () => {
+  const [shiftPressed, setShiftPressed] = React.useState(false);
+
+  const onSendMessage = (e) => {
+    console.log(messageValue);
+    // e.preventDefault();
     socket.emit("ROOM.NEW_MESSAGE", {
       roomId,
       text: messageValue,
@@ -19,9 +23,21 @@ const Chat = ({ roomId, userName, users, messages, onAddMessage }) => {
     setMessageValue("");
   };
 
-  const handlerKeyPress = (e) => {
-    if (e.key === "Enter") {
+  const handlerKeyDown = (e) => {
+    if (e.key === "Shift" && !shiftPressed) {
+      console.log("shift down");
+      setShiftPressed(true);
+    }
+    if (e.key === "Enter" && !shiftPressed) {
+      e.preventDefault();
       onSendMessage();
+    }
+  };
+
+  const handlerKeyUp = (e) => {
+    if (e.key === "Shift") {
+      console.log("shift up");
+      setShiftPressed(false);
     }
   };
 
@@ -55,7 +71,7 @@ const Chat = ({ roomId, userName, users, messages, onAddMessage }) => {
                   userName === message.author ? "message-my" : ""
                 }`}
               >
-                <p>{message.text}</p>
+                <p>{"" + message.text}</p>
                 <div>
                   <span>{message.author}</span>
                 </div>
@@ -68,7 +84,8 @@ const Chat = ({ roomId, userName, users, messages, onAddMessage }) => {
             rows="3"
             value={messageValue}
             onChange={(e) => setMessageValue(e.target.value)}
-            onKeyDown={handlerKeyPress}
+            onKeyDown={handlerKeyDown}
+            onKeyUp={handlerKeyUp}
           ></textarea>
           <button
             type="button"
